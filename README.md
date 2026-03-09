@@ -9,6 +9,7 @@ Desenvolver um aplicativo simples para gerenciamento de um petshop.
 - Back-end: Java
 - Front-end: React
 - Banco de Dados: MySQL
+  - petshop.sql -> Executar no MySQL para criar todas as tabelas do projeto.
 
 ## Funcionalidades
 1. Cadastro de Clientes
