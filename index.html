@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Meu Pet - Cadastro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+  <img src="img/logo.png" alt="Meu Pet" class="logo">
+  <span> Meu Pet</span>
+</header>
+
+  <!-- CONTAINER -->
+  <div class="container">
+
+    <!-- ILUSTRAÇÃO -->
+    <div class="ilustracao">
+      <img src="img/fundo logo.png" alt="Pet">
+    </div>
+
+    <!-- FORM -->
+    <div class="card">
+      <h2>Cadastro do cliente</h2>
+
+      <label>Tutor</label>
+      <input type="text" id="tutor" placeholder="Nome do tutor" />
+
+      <label>Telefone</label>
+      <input type="text" id="telefone" placeholder="(11) 99999-9999" />
+
+      <label>Email</label>
+      <input type="email" id="email" placeholder="email@exemplo.com" />
+
+      <label>Endereço</label>
+      <input type="text" id="endereco" placeholder="Rua, número..." />
+
+      <button onclick="cadastrar()">Cadastrar</button>
+    </div>
+
+  </div>
+
+  <!-- JS -->
+  <script src="script.js"></script>
+</body>
+</html>
