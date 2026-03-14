@@ -1,0 +1,102 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f6f2ff;
+}
+
+.pagina {
+  min-height: 100vh;
+}
+
+.topo {
+  background: linear-gradient(90deg, #7ed6f7, #6ec5ef);
+  padding: 24px;
+  text-align: center;
+  color: #2c2c2c;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.topo h1 {
+  margin: 0;
+  font-size: 38px;
+  color: #ff7a00;
+}
+
+.topo p {
+  margin-top: 8px;
+  font-size: 16px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 30px auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 0 20px;
+}
+
+.card {
+  background-color: #fffdf8;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  border: 1px solid #eee2d0;
+}
+
+.card h2 {
+  margin-top: 0;
+  color: #7b4fa3;
+}
+
+label {
+  display: block;
+  margin-top: 12px;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d8cfc0;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+button {
+  margin-top: 18px;
+  width: 100%;
+  background-color: #56b000;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #469400;
+}
+
+.lista-clientes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lista-clientes li {
+  background-color: #f8f5ff;
+  border: 1px solid #e5daf9;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+}
