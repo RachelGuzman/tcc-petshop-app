@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/clientes")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ClienteController {
 
     private final ClienteRepository repository;
@@ -25,4 +26,6 @@ public class ClienteController {
     public Cliente salvar(@RequestBody Cliente cliente) {
         return repository.save(cliente);
     }
+
+
 }

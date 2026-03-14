@@ -51,7 +51,7 @@ function App() {
   return (
     <div className="pagina">
       <header className="topo">
-        <h1>PetShop+</h1>
+        <h1>🐾 PetShop+</h1>
         <p>Cadastro e listagem de clientes</p>
       </header>
 
