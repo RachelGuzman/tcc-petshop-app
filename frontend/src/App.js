@@ -15,6 +15,12 @@ function App() {
   const [idade, setIdade] = useState('');
   const [clienteId, setClienteId] = useState('');
 
+  const [servicos, setServicos] = useState([]);
+  const [nomeServico, setNomeServico] = useState('');
+  const [descricao, setDescricao] = useState('');
+  const [valor, setValor] = useState('');
+  const [duracao, setDuracao] = useState('');
+
   const carregarClientes = () => {
     axios
       .get('http://localhost:8080/clientes')
@@ -37,9 +43,17 @@ function App() {
       });
   };
 
+  const carregarServicos = () => {
+    axios
+      .get('http://localhost:8080/servicos')
+      .then(res => setServicos(res.data))
+      .catch(err => console.error(err));
+  };
+
   useEffect(() => {
     carregarClientes();
     carregarPets();
+    carregarServicos();
   }, []);
 
   const cadastrarCliente = () => {
@@ -98,6 +112,31 @@ function App() {
         console.error('Erro ao cadastrar pet:', error);
         alert('Erro ao cadastrar pet.');
       });
+  };
+
+  const cadastrarServico = () => {
+    if (!nomeServico || !descricao || !valor || !duracao) {
+      alert('Preencha todos os campos!');
+      return;
+    }
+    axios
+      .post('http://localhost:8080/servicos', {
+        nome: nomeServico,
+        descricao,
+        valor,
+        duracaoMinutos: duracao,
+      })
+      .then(() => {
+        alert('Serviço cadastrado com sucesso!');
+
+        setNomeServico('');
+        setDescricao('');
+        setValor('');
+        setDuracao('');
+
+        carregarServicos();
+      })
+      .catch(err => console.error(err));
   };
 
   return (
@@ -184,6 +223,36 @@ function App() {
           <button onClick={cadastrarPet}>Salvar Pet</button>
         </section>
 
+        <h2>Cadastro de Serviço</h2>
+
+        <input
+          placeholder="Nome"
+          value={nomeServico}
+          onChange={e => setNomeServico(e.target.value)}
+        />
+
+        <input
+          placeholder="Descrição"
+          value={descricao}
+          onChange={e => setDescricao(e.target.value)}
+        />
+
+        <input
+          placeholder="Valor"
+          type="number"
+          value={valor}
+          onChange={e => setValor(e.target.value)}
+        />
+
+        <input
+          placeholder="Duração (min)"
+          type="number"
+          value={duracao}
+          onChange={e => setDuracao(e.target.value)}
+        />
+
+        <button onClick={cadastrarServico}>Salvar Serviço</button>
+
         <section className="card">
           <h2>Clientes Cadastrados</h2>
 
@@ -225,8 +294,25 @@ function App() {
             </ul>
           )}
         </section>
+
+        <section className="card">
+          <h2>Serviços</h2>
+
+          <ul>
+            {servicos.map(s => (
+              <li key={s.id}>
+                <strong>{s.nome}</strong> - R$ {s.valor}
+                <br />
+                {s.descricao}
+                <br />
+                Duração: {s.duracaoMinutos} min
+              </li>
+            ))}
+          </ul>
+        </section>
       </main>
     </div>
   );
 }
+
 export default App;
