@@ -21,6 +21,13 @@ function App() {
   const [valor, setValor] = useState('');
   const [duracao, setDuracao] = useState('');
 
+  const [agendamentos, setAgendamentos] = useState([]);
+  const [data, setData] = useState('');
+  const [horario, setHorario] = useState('');
+  const [clienteAg, setClienteAg] = useState('');
+  const [petAg, setPetAg] = useState('');
+  const [servicoAg, setServicoAg] = useState('');
+
   const carregarClientes = () => {
     axios
       .get('http://localhost:8080/clientes')
@@ -50,10 +57,17 @@ function App() {
       .catch(err => console.error(err));
   };
 
+  const carregarAgendamentos = () => {
+    axios
+      .get('http://localhost:8080/agendamentos')
+      .then(res => setAgendamentos(res.data));
+  };
+
   useEffect(() => {
     carregarClientes();
     carregarPets();
     carregarServicos();
+    carregarAgendamentos();
   }, []);
 
   const cadastrarCliente = () => {
@@ -137,6 +151,26 @@ function App() {
         carregarServicos();
       })
       .catch(err => console.error(err));
+  };
+
+  const cadastrarAgendamento = () => {
+    if (!data || !horario || !clienteAg || !petAg || !servicoAg) {
+      alert('Preencha tudo!');
+      return;
+    }
+
+    axios
+      .post('http://localhost:8080/agendamentos', {
+        data,
+        horario,
+        cliente: { id: clienteAg },
+        pet: { id: petAg },
+        servico: { id: servicoAg },
+      })
+      .then(() => {
+        alert('Agendamento criado!');
+        carregarAgendamentos();
+      });
   };
 
   return (
@@ -252,6 +286,69 @@ function App() {
         />
 
         <button onClick={cadastrarServico}>Salvar Serviço</button>
+
+        <section className="card">
+          <h2>Agendamento</h2>
+
+          <input placeholder="Data" onChange={e => setData(e.target.value)} />
+          <input
+            placeholder="Horário"
+            onChange={e => setHorario(e.target.value)}
+          />
+
+          <select onChange={e => setClienteAg(e.target.value)}>
+            <option>Selecione o cliente</option>
+            {clientes.map(c => (
+              <option key={c.id} value={c.id}>
+                {c.nome}
+              </option>
+            ))}
+          </select>
+
+          <select onChange={e => setPetAg(e.target.value)}>
+            <option>Selecione o pet</option>
+            {pets.map(p => (
+              <option key={p.id} value={p.id}>
+                {p.nome}
+              </option>
+            ))}
+          </select>
+
+          <select onChange={e => setServicoAg(e.target.value)}>
+            <option>Selecione o serviço</option>
+            {servicos.map(s => (
+              <option key={s.id} value={s.id}>
+                {s.nome}
+              </option>
+            ))}
+          </select>
+
+          <button onClick={cadastrarAgendamento}>Agendar</button>
+        </section>
+
+        <section className="card">
+          <h2>Agendamentos</h2>
+
+          {agendamentos.length === 0 ? (
+            <p>Nenhum agendamento ainda.</p>
+          ) : (
+            <ul>
+              {agendamentos
+                .sort((a, b) => new Date(b.data) - new Date(a.data))
+                .map(a => (
+                  <li key={a.id}>
+                    <strong>{a.data}</strong> - {a.horario}
+                    <br />
+                    Cliente: {a.cliente?.nome}
+                    <br />
+                    Pet: {a.pet?.nome}
+                    <br />
+                    Serviço: {a.servico?.nome}
+                  </li>
+                ))}
+            </ul>
+          )}
+        </section>
 
         <section className="card">
           <h2>Clientes Cadastrados</h2>
